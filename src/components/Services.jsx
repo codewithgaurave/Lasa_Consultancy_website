@@ -1,4 +1,5 @@
 import { Box, Heading, Text, SimpleGrid, Button } from '@chakra-ui/react'
+import { Link as RouterLink } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useTheme } from '../ThemeContext'
 
@@ -52,7 +53,7 @@ const Services = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           textAlign="center">
-          <Button border="2px" borderColor="orange.600" color="orange.600" _hover={{ bg: 'orange.600', color: 'white', transform: 'scale(1.1)' }} size={{ base: 'md', md: 'lg' }} px={{ xl: 8 }} cursor="pointer" transition="all 0.3s">Learn More →</Button>
+          <Button as={RouterLink} to="/services" border="2px" borderColor="orange.600" color="orange.600" _hover={{ bg: 'orange.600', color: 'white', transform: 'scale(1.1)', textDecoration: 'none' }} size={{ base: 'md', md: 'lg' }} px={{ xl: 8 }} cursor="pointer" transition="all 0.3s" textDecoration="none">Learn More →</Button>
         </MotionBox>
       </Box>
     </Box>

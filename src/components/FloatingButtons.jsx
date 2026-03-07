@@ -1,4 +1,16 @@
 import { Link } from '@chakra-ui/react'
+import { keyframes } from '@emotion/react'
+
+const pulse = keyframes`
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+  }
+`
 
 const FloatingButtons = () => {
   return (
@@ -20,7 +32,8 @@ const FloatingButtons = () => {
         justifyContent="center"
         boxShadow="0 4px 12px rgba(0,0,0,0.3)"
         zIndex="1000"
-        _hover={{ transform: 'scale(1.1)', boxShadow: '0 6px 16px rgba(0,0,0,0.4)' }}
+        animation={`${pulse} 2s ease-in-out infinite`}
+        _hover={{ transform: 'scale(1.15)', boxShadow: '0 6px 16px rgba(0,0,0,0.4)', animation: 'none' }}
         transition="all 0.3s"
       >
         <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
@@ -44,7 +57,8 @@ const FloatingButtons = () => {
         justifyContent="center"
         boxShadow="0 4px 12px rgba(0,0,0,0.3)"
         zIndex="1000"
-        _hover={{ transform: 'scale(1.1)', boxShadow: '0 6px 16px rgba(0,0,0,0.4)' }}
+        animation={`${pulse} 2s ease-in-out infinite 0.5s`}
+        _hover={{ transform: 'scale(1.15)', boxShadow: '0 6px 16px rgba(0,0,0,0.4)', animation: 'none' }}
         transition="all 0.3s"
       >
         <svg width="28" height="28" viewBox="0 0 24 24" fill="white">

@@ -1,4 +1,5 @@
 import { Box, Flex, Heading, Text, Button, Image } from '@chakra-ui/react'
+import { Link as RouterLink } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useTheme } from '../ThemeContext'
 
@@ -31,7 +32,7 @@ const About = () => {
             <Text fontSize={{ base: 'sm', md: 'md', lg: 'lg' }} mb={{ base: 4, md: 6 }} lineHeight="1.8" color={isDark ? 'gray.300' : 'gray.700'}>Lasa Consultants & Organisation is a Jaipur-based integrated consultancy and professional services organisation delivering legal, business, procurement, governance, healthcare, intellectual property, environmental and skill-development solutions across India.</Text>
             <Text fontSize={{ base: 'sm', md: 'md', lg: 'lg' }} mb={{ base: 4, md: 6 }} lineHeight="1.8" color={isDark ? 'gray.300' : 'gray.700'}>We operate at the intersection of:<br />- Law & compliance<br />- Business & corporate strategy<br />- Public Procurement & GEM<br />- Governance & risk<br />- Healthcare & technology<br />- Intellectual property & innovation<br />- Environmental & sustainability<br />- Skill development & education</Text>
             <Text fontSize={{ base: 'sm', md: 'md', lg: 'lg' }} mb={{ base: 6, md: 8 }} lineHeight="1.8" color={isDark ? 'gray.300' : 'gray.700'}>Our solutions are legally sound, commercially viable, operationally executable, ethically compliant and sector-specific.</Text>
-            <Button border="2px" borderColor="orange.600" color="orange.600" _hover={{ bg: 'orange.600', color: 'white', transform: 'scale(1.05)' }} size={{ base: 'md', md: 'lg' }} px={{ xl: 8 }} cursor="pointer" transition="all 0.3s">Learn More →</Button>
+            <Button as={RouterLink} to="/about" border="2px" borderColor="orange.600" color="orange.600" _hover={{ bg: 'orange.600', color: 'white', transform: 'scale(1.05)', textDecoration: 'none' }} size={{ base: 'md', md: 'lg' }} px={{ xl: 8 }} cursor="pointer" transition="all 0.3s" textDecoration="none">Learn More →</Button>
           </MotionBox>
           <MotionBox
             initial={{ opacity: 0, x: 100, rotateY: 45 }}

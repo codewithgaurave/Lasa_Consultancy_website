@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Box, Heading, Text, Button, Flex } from '@chakra-ui/react'
+import { Link as RouterLink } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
 const MotionBox = motion(Box)
 const MotionHeading = motion(Heading)
 const MotionText = motion(Text)
 const MotionFlex = motion(Flex)
-const MotionButton = motion(Button)
 
 const slides = [
   '/images/image.jpg',
@@ -56,9 +56,9 @@ const HeroCarousel = () => {
               animate={{ opacity: current === index ? 1 : 0, scale: current === index ? 1 : 0.8 }}
               transition={{ duration: 0.6, delay: 0.6 }}
               gap={{ base: 3, md: 4, lg: 5 }} wrap="wrap" justify="center" direction={{ base: 'column', sm: 'row' }} w={{ base: 'full', sm: 'auto' }} px={{ base: 4, sm: 0 }} maxW="1200px">
-              <Button bgGradient="linear(to-r, orange.600, orange.700)" color="white" size={{ base: 'md', md: 'lg', xl: 'lg' }} px={{ xl: 8 }} w={{ base: 'full', sm: 'auto' }} _hover={{ bgGradient: 'linear(to-r, orange.600, orange.700)', transform: 'scale(1.05)' }} transition="all 0.3s">Schedule Consultation</Button>
-              <Button bgGradient="linear(to-r, orange.600, orange.700)" color="white" size={{ base: 'md', md: 'lg', xl: 'lg' }} px={{ xl: 8 }} w={{ base: 'full', sm: 'auto' }} _hover={{ bgGradient: 'linear(to-r, orange.600, orange.700)', transform: 'scale(1.05)' }} transition="all 0.3s">Explore Services</Button>
-              <Button bgGradient="linear(to-r, orange.600, orange.700)" color="white" size={{ base: 'md', md: 'lg', xl: 'lg' }} px={{ xl: 8 }} w={{ base: 'full', sm: 'auto' }} _hover={{ bgGradient: 'linear(to-r, orange.600, orange.700)', transform: 'scale(1.05)' }} transition="all 0.3s">Training Programs</Button>
+              <Button as={RouterLink} to="/consultation" bgGradient="linear(to-r, orange.600, orange.700)" color="white" size={{ base: 'md', md: 'lg', xl: 'lg' }} px={{ xl: 8 }} w={{ base: 'full', sm: 'auto' }} _hover={{ bgGradient: 'linear(to-r, orange.600, orange.700)', transform: 'scale(1.05)', textDecoration: 'none', color: 'white' }} transition="all 0.3s" textDecoration="none">Schedule Consultation</Button>
+              <Button as={RouterLink} to="/services" bgGradient="linear(to-r, orange.600, orange.700)" color="white" size={{ base: 'md', md: 'lg', xl: 'lg' }} px={{ xl: 8 }} w={{ base: 'full', sm: 'auto' }} _hover={{ bgGradient: 'linear(to-r, orange.600, orange.700)', transform: 'scale(1.05)', textDecoration: 'none', color: 'white' }} transition="all 0.3s" textDecoration="none">Explore Services</Button>
+              <Button as={RouterLink} to="/trainings" bgGradient="linear(to-r, orange.600, orange.700)" color="white" size={{ base: 'md', md: 'lg', xl: 'lg' }} px={{ xl: 8 }} w={{ base: 'full', sm: 'auto' }} _hover={{ bgGradient: 'linear(to-r, orange.600, orange.700)', transform: 'scale(1.05)', textDecoration: 'none', color: 'white' }} transition="all 0.3s" textDecoration="none">Training Programs</Button>
             </MotionFlex>
           </Flex>
         </MotionBox>

@@ -1,4 +1,5 @@
 import { Box, Flex, Heading, Text, Button, Image } from '@chakra-ui/react'
+import { Link as RouterLink } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useTheme } from '../ThemeContext'
 
@@ -33,7 +34,7 @@ const Philosophy = () => {
             <Text fontSize={{ base: 'sm', md: 'md', lg: 'lg' }} mb={{ base: 4, md: 6 }} lineHeight="1.8" color={isDark ? 'gray.300' : 'gray.700'}>Process-driven execution</Text>
             <Text fontSize={{ base: 'sm', md: 'md', lg: 'lg' }} mb={{ base: 4, md: 6 }} lineHeight="1.8" color={isDark ? 'gray.300' : 'gray.700'}>Transparency & accountability</Text>
             <Text fontSize={{ base: 'sm', md: 'md', lg: 'lg' }} mb={{ base: 6, md: 8 }} lineHeight="1.8" color={isDark ? 'gray.300' : 'gray.700'}>Long-term value creation</Text>
-            <Button border="2px" borderColor="orange.600" color="orange.600" _hover={{ bg: 'orange.600', color: 'white' }} size={{ base: 'md', md: 'lg' }} px={{ xl: 8 }} cursor="pointer">Learn More →</Button>
+            <Button as={RouterLink} to="/about" border="2px" borderColor="orange.600" color="orange.600" _hover={{ bg: 'orange.600', color: 'white', textDecoration: 'none' }} size={{ base: 'md', md: 'lg' }} px={{ xl: 8 }} cursor="pointer" transition="all 0.3s" textDecoration="none">Learn More →</Button>
           </MotionBox>
           <MotionBox
             initial={{ opacity: 0, x: 50 }}

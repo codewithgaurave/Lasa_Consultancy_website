@@ -41,6 +41,7 @@ const Header = () => {
           <video src="/media/lasa-logo3.webm" style={{ height: '60px' }} autoPlay muted loop playsInline />
         </Link>
         <Flex display={{ base: 'none', lg: 'flex' }} gap={{ lg: 6, xl: 8 }} align="center">
+          <Link href="/" color="white" fontSize={{ lg: 'md', xl: 'lg' }} _hover={{ color: 'yellow.400' }}>Home</Link>
           <Link href="/about" color="white" fontSize={{ lg: 'md', xl: 'lg' }} _hover={{ color: 'yellow.400' }}>About Us</Link>
           <Link href="/services" color="white" fontSize={{ lg: 'md', xl: 'lg' }} _hover={{ color: 'yellow.400' }}>Our Services</Link>
           <Link href="/upload-pdf" color="white" fontSize={{ lg: 'md', xl: 'lg' }} _hover={{ color: 'yellow.400' }}>Upload PDF</Link>
@@ -69,11 +70,12 @@ const Header = () => {
           <DrawerCloseButton color="white" />
           <DrawerBody pt={20}>
             <VStack spacing={6} align="stretch">
-              <Link href="/about" color="white" fontSize="lg" onClick={onClose}>About Us</Link>
-              <Link href="/services" color="white" fontSize="lg" onClick={onClose}>Our Services</Link>
-              <Link href="/#upload-pdf" color="white" fontSize="lg" onClick={onClose}>Upload PDF</Link>
-              <Link href="/#contact-us" color="white" fontSize="lg" onClick={onClose}>Contact Us</Link>
-              <Button bgGradient="linear(to-r, orange.600, orange.700)" color="white" onClick={onClose}>BLOGS</Button>
+              <Link href="/" color="white" fontSize="lg" onClick={onClose} _hover={{ textDecoration: 'none', color: 'yellow.400' }} textDecoration="none">Home</Link>
+              <Link href="/about" color="white" fontSize="lg" onClick={onClose} _hover={{ textDecoration: 'none', color: 'yellow.400' }} textDecoration="none">About Us</Link>
+              <Link href="/services" color="white" fontSize="lg" onClick={onClose} _hover={{ textDecoration: 'none', color: 'yellow.400' }} textDecoration="none">Our Services</Link>
+              <Link href="/upload-pdf" color="white" fontSize="lg" onClick={onClose} _hover={{ textDecoration: 'none', color: 'yellow.400' }} textDecoration="none">Upload PDF</Link>
+              <Link href="/contact" color="white" fontSize="lg" onClick={onClose} _hover={{ textDecoration: 'none', color: 'yellow.400' }} textDecoration="none">Contact Us</Link>
+              <Button bgGradient="linear(to-r, orange.600, orange.700)" color="white" onClick={onClose} as="a" href="/blogs" _hover={{ bgGradient: 'linear(to-r, orange.700, orange.800)' }}>GET INSIGHTS</Button>
             </VStack>
           </DrawerBody>
         </DrawerContent>
