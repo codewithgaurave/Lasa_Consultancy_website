@@ -92,17 +92,15 @@ const BlogDetailPage = () => {
         </Flex>
 
         <Flex justify="space-between" align="center" mt={12} p={6} bg={isDark ? 'gray.800' : 'gray.50'} borderRadius="lg">
-          <Flex align="center" gap={2}>
-            <Button 
-              leftIcon={liked ? <AiFillHeart /> : <AiOutlineHeart />} 
-              colorScheme={liked ? 'red' : 'gray'} 
-              variant={liked ? 'solid' : 'outline'}
-              onClick={handleLike}
-              isDisabled={liked}
-            >
-              {blog.likes} Likes
-            </Button>
-          </Flex>
+          <Button 
+            leftIcon={liked ? <AiFillHeart /> : <AiOutlineHeart />} 
+            colorScheme={liked ? 'red' : 'gray'} 
+            variant={liked ? 'solid' : 'outline'}
+            onClick={handleLike}
+            isDisabled={liked}
+          >
+            {blog.likes} Likes
+          </Button>
           <Text fontSize="sm" color={isDark ? 'gray.400' : 'gray.600'}>Share this article</Text>
         </Flex>
       </Container>
