@@ -1,18 +1,16 @@
-import { Box, Heading, Text, Container, Image, Flex, Badge, Spinner, Button, useToast } from '@chakra-ui/react'
+import { Box, Heading, Text, Container, Image, Flex, Badge, Spinner, Button } from '@chakra-ui/react'
 import { useTheme } from '../ThemeContext'
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getBlogBySlug, likeBlog } from '../apis/blogs'
-import { AiOutlineHeart, AiFillHeart, AiOutlineEye } from 'react-icons/ai'
+import { getBlogBySlug } from '../apis/blogs'
+import { AiOutlineEye } from 'react-icons/ai'
 
 const BlogDetailPage = () => {
   const { isDark } = useTheme()
   const { slug } = useParams()
   const navigate = useNavigate()
-  const toast = useToast()
   const [blog, setBlog] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [liked, setLiked] = useState(false)
 
   useEffect(() => {
     const fetchBlog = async () => {
@@ -20,7 +18,6 @@ const BlogDetailPage = () => {
         const data = await getBlogBySlug(slug)
         setBlog(data.blog)
       } catch (error) {
-        toast({ title: 'Blog not found', status: 'error', duration: 3000 })
         navigate('/blogs')
       } finally {
         setLoading(false)
@@ -28,17 +25,6 @@ const BlogDetailPage = () => {
     }
     fetchBlog()
   }, [slug])
-
-  const handleLike = async () => {
-    try {
-      await likeBlog(slug)
-      setLiked(true)
-      setBlog({ ...blog, likes: blog.likes + 1 })
-      toast({ title: 'Blog liked!', status: 'success', duration: 2000 })
-    } catch (error) {
-      toast({ title: 'Failed to like', status: 'error', duration: 2000 })
-    }
-  }
 
   if (loading) {
     return (
@@ -89,19 +75,6 @@ const BlogDetailPage = () => {
           {blog.tags?.map((tag, i) => (
             <Badge key={i} colorScheme="gray">{tag}</Badge>
           ))}
-        </Flex>
-
-        <Flex justify="space-between" align="center" mt={12} p={6} bg={isDark ? 'gray.800' : 'gray.50'} borderRadius="lg">
-          <Button 
-            leftIcon={liked ? <AiFillHeart /> : <AiOutlineHeart />} 
-            colorScheme={liked ? 'red' : 'gray'} 
-            variant={liked ? 'solid' : 'outline'}
-            onClick={handleLike}
-            isDisabled={liked}
-          >
-            {blog.likes} Likes
-          </Button>
-          <Text fontSize="sm" color={isDark ? 'gray.400' : 'gray.600'}>Share this article</Text>
         </Flex>
       </Container>
     </Box>
