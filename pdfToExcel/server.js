@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 import fs from 'fs';
 import multer from 'multer';
 import ExcelJS from 'exceljs';
+import archiver from 'archiver';
 import { createRequire } from 'module';
 
 const require = createRequire(import.meta.url);
@@ -48,18 +49,20 @@ app.get('/', (req, res) => {
 
 
 const upload = multer({ dest: "uploads/" });
-app.post("/upload", upload.single("pdf"), async (req, res) => {
+
+app.post("/upload", upload.array("pdf", 20), async (req, res) => {
+    if (!req.files || req.files.length === 0) return res.status(400).json({ error: 'No files uploaded' });
+
+    const outputFiles = [];
+
     try {
-        const filePath = req.file.path;
-
-        // 📄 PDF read
-        const dataBuffer = fs.readFileSync(filePath);
-        const data = await pdf(dataBuffer);
-
-        // ✅ Delete uploaded PDF after processing
-        fs.unlinkSync(filePath);
-
-        const text = data.text;
+        for (const file of req.files) {
+            const originalName = file.originalname.replace('.pdf', '');
+            const filePath = file.path;
+            const dataBuffer = fs.readFileSync(filePath);
+            const data = await pdf(dataBuffer);
+            fs.unlinkSync(filePath);
+            const text = data.text;
 
         // 🎯 Helper function for cleaning and removing Hindi/Garbage
         const clean = (val) => {
@@ -314,38 +317,37 @@ app.post("/upload", upload.single("pdf"), async (req, res) => {
         serviceDetailsSheet.addRow(serviceDetailsData);
         styleSheet(serviceDetailsSheet);
 
-        const outputPath = `outputs/output-${Date.now()}.xlsx`;
+            const outputPath = `outputs/${originalName}-${Date.now()}.xlsx`;
+            await workbook.xlsx.writeFile(outputPath);
+            outputFiles.push({ path: outputPath, name: `${originalName}.xlsx` });
+        } // end for loop
 
-        await workbook.xlsx.writeFile(outputPath);
-
-        // 📥 send file and cleanup
-        res.download(outputPath, (err) => {
-            if (err) {
-                console.error("Download Error:", err);
-            }
-            // ✅ Delete Excel file after download completes
-            if (fs.existsSync(outputPath)) {
-                fs.unlinkSync(outputPath);
-            }
-        });
+        // Single PDF → direct download, Multiple → ZIP
+        if (outputFiles.length === 1) {
+            res.download(outputFiles[0].path, outputFiles[0].name, () => {
+                if (fs.existsSync(outputFiles[0].path)) fs.unlinkSync(outputFiles[0].path);
+            });
+        } else {
+            const zipPath = `outputs/contracts-${Date.now()}.zip`;
+            const output = fs.createWriteStream(zipPath);
+            const archive = archiver('zip');
+            archive.pipe(output);
+            outputFiles.forEach(f => archive.file(f.path, { name: f.name }));
+            await archive.finalize();
+            output.on('close', () => {
+                res.download(zipPath, 'contracts.zip', () => {
+                    outputFiles.forEach(f => { if (fs.existsSync(f.path)) fs.unlinkSync(f.path); });
+                    if (fs.existsSync(zipPath)) fs.unlinkSync(zipPath);
+                });
+            });
+        }
 
     } catch (error) {
         console.error("Processing Error:", error.message);
-
-        // cleanup on error if file still exists
-        if (req.file && fs.existsSync(req.file.path)) {
-            fs.unlinkSync(req.file.path);
-        }
-
-        // Render index with error message instead of simple res.send
-        res.render('index', {
-            title: 'PDF to Excel Converter',
-            message: 'Welcome to the premium converter!',
-            error: error.message
-        });
+        req.files?.forEach(f => { if (fs.existsSync(f.path)) fs.unlinkSync(f.path); });
+        outputFiles.forEach(f => { if (fs.existsSync(f.path)) fs.unlinkSync(f.path); });
+        res.status(500).json({ error: error.message });
     }
-
-
 });
 
 app.listen(PORT, () => {

@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "archiver": "^7.0.1",
     "ejs": "^5.0.1",
     "exceljs": "^4.4.0",
     "express": "^5.2.1",
