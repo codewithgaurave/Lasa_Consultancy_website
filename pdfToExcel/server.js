@@ -46,7 +46,7 @@ const styleSheet = (sheet) => {
     });
 };
 
-app.post("/upload", upload.array("pdf", 20), async (req, res) => {
+app.post("/upload", upload.any(), async (req, res) => {
     if (!req.files || req.files.length === 0) return res.status(400).json({ error: 'No files uploaded' });
 
     try {
