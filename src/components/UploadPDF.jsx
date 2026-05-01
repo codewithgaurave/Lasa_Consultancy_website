@@ -42,7 +42,10 @@ const UploadPDF = () => {
       const formData = new FormData()
       files.forEach(f => formData.append('pdf', f))
       const res = await fetch(`${BACKEND_URL}/upload`, { method: 'POST', body: formData })
-      if (!res.ok) throw new Error('Conversion failed. PDF format check karo.')
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({ error: 'Conversion failed. PDF format check karo.' }))
+        throw new Error(errData.error || 'Conversion failed.')
+      }
       const blob = await res.blob()
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')

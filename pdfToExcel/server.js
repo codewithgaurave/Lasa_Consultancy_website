@@ -173,7 +173,7 @@ app.post("/upload", upload.array("pdf", 20), async (req, res) => {
             const amountOfContract = extract(/Total\s*Contract\s*Value[\s\S]*?(\d+)/i);
 
             if (contactNumber === "Not Found" && bidRaPbpNo === "Not Found") {
-                throw new Error(`Invalid PDF "${originalName}": Contract No or Bid No not found.`);
+                console.warn(`Warning: Contract No or Bid No not found in "${originalName}", continuing anyway.`);
             }
 
             const orgSection = getSection("Organisation Details");
