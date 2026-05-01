@@ -50,7 +50,7 @@ const UploadPDF = () => {
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = files.length === 1 ? files[0].name.replace('.pdf', '.xlsx') : 'contracts.zip'
+      a.download = files.length === 1 ? files[0].name.replace('.pdf', '.xlsx') : 'contracts.xlsx'
       a.click()
       URL.revokeObjectURL(url)
       setFiles([])
